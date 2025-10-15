@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoAtt - Attendance Management System</title>
+    <style>
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-badge {
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-success { background: linear-gradient(45deg, #27ae60, #2ecc71); }
+        .btn-danger { background: linear-gradient(45deg, #e74c3c, #c0392b); }
+        .btn-warning { background: linear-gradient(45deg, #f39c12, #e67e22); }
+        .btn-google { background: linear-gradient(45deg, #db4437, #c23321); }
+        
+        .auth-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: #ecf0f1;
+            border-radius: 25px;
+            padding: 5px;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background: #3498db;
+            color: white;
+            box-shadow: 0 2px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .upload-area {
+            border: 3px dashed #3498db;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: #f8f9fa;
+        }
+        
+        .upload-area:hover {
+            border-color: #2980b9;
+            background: #e3f2fd;
+        }
+        
+        .upload-area.dragover {
+            border-color: #27ae60;
+            background: #d5f4e6;
+        }
+        
+        .upload-icon { font-size: 3rem; margin-bottom: 15px; }
+        .hidden { display: none !important; }
+        
+        .workbook-info {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .sheet-selector {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .drive-file-card {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 2px solid #e1e8ed;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .drive-file-card:hover {
+            border-color: #3498db;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .drive-file-card.uploaded {
+            border-color: #27ae60;
+            background: #e8f5e9;
+            cursor: default;
+        }
+
+        .drive-file-card.uploaded:hover {
+            transform: none;
+        }
+        
+        .date-selector {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            align-items: center;
+        }
+        
+        .date-selector input[type="date"] {
+            padding: 10px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card.matched { border-left: 4px solid #27ae60; }
+        .stat-card.unmatched { border-left: 4px solid #e74c3c; }
+        .stat-card.total { border-left: 4px solid #3498db; }
+        .stat-card.absent { border-left: 4px solid #f39c12; }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .student-card {
+            background: white;
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .student-card.matched { border-left: 4px solid #27ae60; }
+        .student-card.unmatched { border-left: 4px solid #e74c3c; }
+        
+        .student-info { flex: 1; }
+        
+        .student-name {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        
+        .student-details {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .match-info {
+            font-size: 0.8em;
+            padding: 4px 8px;
+            border-radius: 12px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+        
+        .match-info.matched {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+        
+        .match-info.unmatched {
+            background: #fadbd8;
+            color: #e74c3c;
+        }
+        
+        .status-present {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .status-absent {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            font-size: 18px;
+            color: #2980b9;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error, .success, .warning {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .error {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .success {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            color: white;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+
+        .preview {
+            max-width: 100%;
+            max-height: 300px;
+            margin: 20px auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #999;
+            font-size: 0.9em;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+
+        .divider span {
+            background: white;
+            padding: 0 15px;
+            position: relative;
+        }
+        
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            .header { flex-direction: column; gap: 15px; }
+            .date-selector { flex-direction: column; align-items: stretch; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .student-card { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Auth Section (Login/Register) -->
+    <div id="authSection" class="auth-container">
+        <h1 style="text-align: center; margin-bottom: 30px;">AutoAtt</h1>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="switchAuthTab('login')">Login</button>
+            <button class="tab" onclick="switchAuthTab('register')">Register</button>
+        </div>
+        
+        <!-- Login Form -->
+        <div id="loginForm" class="tab-content active">
+            <button class="btn btn-google" onclick="loginWithGoogle()" style="width: 100%; margin-bottom: 20px; padding: 15px;">
+                <span style="margin-right: 10px;"></span>
+                Continue with Google
+            </button>
+            
+            <div class="divider"><span>OR</span></div>
+            
+            <div class="form-group">
+                <label for="loginUsername">Username or Email</label>
+                <input type="text" id="loginUsername" placeholder="Enter username or email">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter password">
+            </div>
+            <button class="btn" style="width: 100%;" onclick="login()">Login</button>
+            
+            <div style="text-align: center; margin-top: 15px;">
+                <small style="color: #666;">
+                    Sign in with Google to access your Drive files
+                </small>
+            </div>
+        </div>
+        
+        <!-- Register Form -->
+        <div id="registerForm" class="tab-content">
+            <div class="form-group">
+                <label for="regFullName">Full Name</label>
+                <input type="text" id="regFullName" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="regUsername">Username</label>
+                <input type="text" id="regUsername" placeholder="Choose a username">
+            </div>
+            <div class="form-group">
+                <label for="regEmail">Email</label>
+                <input type="email" id="regEmail" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="regSubject">Subject (Optional)</label>
+                <input type="text" id="regSubject" placeholder="e.g., Mathematics, English">
+            </div>
+            <div class="form-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" placeholder="Create a password">
+            </div>
+            <button class="btn" style="width: 100%;" onclick="register()">Create Account</button>
+        </div>
+        
+        <div id="authMessage" style="margin-top: 20px; text-align: center;"></div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="container hidden">
+        <div class="header">
+            <h1>AutoAtt</h1>
+            <div class="user-info">
+                <span class="user-badge" id="userBadge">Loading...</span>
+                <button class="btn btn-danger" onclick="logout()">Logout</button>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('workbook')">Setup Workbook</button>
+            <button class="tab" onclick="switchTab('attendance')">Process Attendance</button>
+        </div>
+        
+        <!-- Workbook Setup Tab -->
+        <div id="workbook-tab" class="tab-content active">
+            <div class="workbook-info">
+                <h3>Attendance Workbook Setup</h3>
+                <p>Upload your Excel workbook (.xlsx, .xls) or Google Sheets from Drive.</p>
+                
+                <div id="workbookStatus">
+                    <p>No workbook uploaded yet.</p>
+                </div>
+                
+                <!-- Upload Section - Will be hidden after successful upload -->
+                <div id="uploadSection">
+                    <div class="upload-area" id="workbookUploadArea">
+                        <div class="upload-icon"></div>
+                        <h3>Upload Workbook</h3>
+                        <p>Excel (.xlsx, .xls) or exported Google Sheets</p>
+                        <input type="file" id="workbookInput" accept=".xlsx,.xls" style="display: none;">
+                        <button class="btn" onclick="document.getElementById('workbookInput').click()">
+                            Choose File
+                        </button>
+                    </div>
+                    
+                    <!-- Google Drive Option -->
+                    <div id="driveOption" class="hidden" style="text-align: center;">
+                        <div class="divider"><span>OR</span></div>
+                        <button class="btn btn-google" onclick="showDriveFiles()">
+                            📁 Select File from Google Drive
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Google Drive Files Section - Initially hidden -->
+                <div id="driveFilesSection" class="hidden">
+                    <h4>Your Google Drive Workbooks</h4>
+                    <div id="driveFilesList"></div>
+                    <button class="btn" onclick="hideDriveFiles()" style="margin-top: 15px;">
+                        ← Back to Upload
+                    </button>
+                </div>
+                
+                <!-- Workbook Info - Shows after upload -->
+                <div id="workbookInfo" class="hidden"></div>
+            </div>
+        </div>
+        
+        <!-- Attendance Processing Tab -->
+        <div id="attendance-tab" class="tab-content">
+            <div id="attendanceSetup">
+                <h3>Process Attendance Photo</h3>
+                
+                <div class="warning" id="noWorkbookWarning">
+                    Please upload your Excel workbook first in the "Setup Workbook" tab.
+                </div>
+                
+                <div id="attendanceForm" class="hidden">
+                    <div class="sheet-selector">
+                        <label for="sheetSelect"><strong>Select Sheet (Section):</strong></label>
+                        <select id="sheetSelect">
+                            <option value="">Choose a sheet...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="date-selector">
+                        <label for="attendanceDate"><strong>Date:</strong></label>
+                        <input type="date" id="attendanceDate">
+                        <button class="btn btn-success" onclick="setToday()">Today</button>
+                    </div>
+                    
+                    <div class="upload-area" id="photoUploadArea">
+                        <div class="upload-icon"></div>
+                        <h3>Upload Attendance Photo</h3>
+                        <p>Take or upload a photo of your attendance sheet</p>
+                        <input type="file" id="photoInput" accept="image/*" capture="camera" style="display: none;">
+                        <button class="btn" onclick="document.getElementById('photoInput').click()">
+                            Choose Photo
+                        </button>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 25px 0;">
+                        <button class="btn btn-success" id="processBtn" onclick="processAttendance()" disabled>
+                            Submit Attendance
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <div id="loadingText">Processing attendance...</div>
+            </div>
+            
+            <div id="preview"></div>
+            <div id="results" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let authToken = null;
+        let workbookInfo = null;
+        let selectedFile = null;
+        let driveFiles = [];
+        
+        // Initialize on page load
+        window.onload = function() {
+            console.log('Page loading...');
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+            const userString = urlParams.get('user');
+            const error = urlParams.get('error');
+            
+            if (error) {
+                const errorMessages = {
+                    'auth_failed': 'Google authentication failed. Please try again.',
+                    'callback_failed': 'Authentication callback failed.',
+                    'access_denied': 'You cancelled the Google sign-in.',
+                    'no_user': 'Authentication completed but no user data received.'
+                };
+                showAuthMessage(errorMessages[error] || 'Authentication error occurred.', 'error');
+                window.history.replaceState({}, document.title, '/');
+                return;
+            }
+            
+            if (token && userString) {
+                try {
+                    console.log('Processing Google OAuth callback...');
+                    authToken = token;
+                    currentUser = JSON.parse(decodeURIComponent(userString));
+                    
+                    localStorage.setItem('autoatt_token', authToken);
+                    localStorage.setItem('autoatt_user', JSON.stringify(currentUser));
+                    localStorage.setItem('autoatt_login_time', Date.now().toString());
+                    localStorage.setItem('autoatt_google_connected', 'true');
+                    
+                    window.history.replaceState({}, document.title, '/');
+                    
+                    showMainApp();
+                    loadWorkbookInfo();
+                    
+                    setTimeout(() => {
+                        showMessage('Successfully signed in with Google!', 'success');
+                    }, 500);
+                    
+                    setupTokenRefresh();
+                    
+                } catch (error) {
+                    console.error('Google OAuth callback error:', error);
+                    showAuthMessage('Authentication data processing failed', 'error');
+                }
+            } else {
+                const storedToken = localStorage.getItem('autoatt_token');
+                const storedUser = localStorage.getItem('autoatt_user');
+                const loginTime = localStorage.getItem('autoatt_login_time');
+                
+                if (storedToken && storedUser) {
+                    const daysSinceLogin = loginTime ? (Date.now() - parseInt(loginTime)) / (1000 * 60 * 60 * 24) : 31;
+                    
+                    if (daysSinceLogin < 30) {
+                        authToken = storedToken;
+                        currentUser = JSON.parse(storedUser);
+                        showMainApp();
+                        loadWorkbookInfo();
+                        setupTokenRefresh();
+                    } else {
+                        localStorage.clear();
+                        showAuthSection();
+                    }
+                } else {
+                    showAuthSection();
+                }
+            }
+            
+            setToday();
+        };
+
+        function setupTokenRefresh() {
+            setInterval(async () => {
+                if (currentUser && currentUser.email) {
+                    try {
+                        const response = await fetch('/api/auth/refresh-google-token', {
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${authToken}` }
+                        });
+                        if (response.ok) {
+                            console.log('✅ Token refreshed');
+                        }
+                    } catch (error) {
+                        console.error('Token refresh error:', error);
+                    }
+                }
+            }, 50 * 60 * 1000);
+        }
+
+        function loginWithGoogle() {
+            sessionStorage.setItem('google_login_attempt', 'true');
+            window.location.href = '/auth/google';
+        }
+
+        async function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!username || !password) {
+                showAuthMessage('Please enter both username and password', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    authToken = data.token;
+                    currentUser = data.user;
+                    localStorage.setItem('autoatt_token', authToken);
+                    localStorage.setItem('autoatt_user', JSON.stringify(currentUser));
+                    showMainApp();
+                    loadWorkbookInfo();
+                } else {
+                    showAuthMessage(data.error, 'error');
+                }
+            } catch (error) {
+                showAuthMessage('Login failed: ' + error.message, 'error');
+            }
+        }
+
+        async function register() {
+            const fullName = document.getElementById('regFullName').value;
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const subject = document.getElementById('regSubject').value;
+            const password = document.getElementById('regPassword').value;
+            
+            if (!fullName || !username || !email || !password) {
+                showAuthMessage('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fullName, username, email, subject, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    authToken = data.token;
+                    currentUser = data.user;
+                    localStorage.setItem('autoatt_token', authToken);
+                    localStorage.setItem('autoatt_user', JSON.stringify(currentUser));
+                    showMainApp();
+                } else {
+                    showAuthMessage(data.error, 'error');
+                }
+            } catch (error) {
+                showAuthMessage('Registration failed: ' + error.message, 'error');
+            }
+        }
+
+        function logout() {
+            const confirmed = confirm('Are you sure you want to logout?');
+            if (!confirmed) return;
+            
+            localStorage.clear();
+            sessionStorage.clear();
+            
+            authToken = null;
+            currentUser = null;
+            driveFiles = [];
+            workbookInfo = null;
+            
+            showAuthSection();
+            showAuthMessage('Logged out successfully', 'success');
+        }
+
+        function showAuthMessage(message, type) {
+            const messageDiv = document.getElementById('authMessage');
+            messageDiv.innerHTML = `<div class="${type}">${message}</div>`;
+            setTimeout(() => messageDiv.innerHTML = '', 5000);
+        }
+
+        function showMainApp() {
+            document.getElementById('authSection').classList.add('hidden');
+            document.getElementById('mainApp').classList.remove('hidden');
+            
+            const userBadge = document.getElementById('userBadge');
+            const isGoogleUser = currentUser.email && currentUser.googleConnected;
+            
+            userBadge.innerHTML = `
+                ${currentUser.avatar ? `<img src="${currentUser.avatar}" style="width: 24px; height: 24px; border-radius: 50%; margin-right: 8px; vertical-align: middle;">` : ''}
+                <span style="vertical-align: middle;">${currentUser.fullName}</span>
+                ${isGoogleUser ? '<br><small style="opacity: 0.8;">Google Connected</small>' : ''}
+            `;
+
+            // Show Drive option if Google user
+            if (isGoogleUser) {
+                document.getElementById('driveOption').classList.remove('hidden');
+            }
+        }
+
+        function showAuthSection() {
+            document.getElementById('authSection').classList.remove('hidden');
+            document.getElementById('mainApp').classList.add('hidden');
+        }
+
+        function switchAuthTab(tab) {
+            document.querySelectorAll('#authSection .tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('#authSection .tab-content').forEach(c => c.classList.remove('active'));
+            
+            if (tab === 'login') {
+                document.querySelector('#authSection .tab:first-child').classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.querySelector('#authSection .tab:last-child').classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+            }
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('#mainApp .tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('#mainApp .tab-content').forEach(c => c.classList.remove('active'));
+            
+            if (tab === 'workbook') {
+                document.querySelector('#mainApp .tab:first-child').classList.add('active');
+                document.getElementById('workbook-tab').classList.add('active');
+            } else {
+                document.querySelector('#mainApp .tab:last-child').classList.add('active');
+                document.getElementById('attendance-tab').classList.add('active');
+                checkWorkbookStatus();
+            }
+        }
+
+        // Workbook upload
+        document.getElementById('workbookInput').addEventListener('change', uploadWorkbook);
+
+        async function uploadWorkbook() {
+            const fileInput = document.getElementById('workbookInput');
+            const file = fileInput.files[0];
+            
+            if (!file) return;
+
+            const fileName = file.name.toLowerCase();
+            if (!fileName.endsWith('.xlsx') && !fileName.endsWith('.xls')) {
+                showMessage('Please select a valid Excel file', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('workbook', file);
+            formData.append('uploadType', 'workbook');
+
+            try {
+                showLoading('Uploading and analyzing workbook...');
+                
+                const response = await fetch('/api/workbook/upload', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${authToken}` },
+                    body: formData
+                });
+                
+                const data = await response.json();
+                hideLoading();
+                
+                if (response.ok) {
+                    workbookInfo = data;
+                    displayWorkbookInfo(data);
+                    updateAttendanceForm();
+                    showMessage('Workbook uploaded successfully!', 'success');
+                } else {
+                    showMessage(data.error, 'error');
+                }
+            } catch (error) {
+                hideLoading();
+                showMessage('Upload failed: ' + error.message, 'error');
+            }
+        }
+
+        async function loadWorkbookInfo() {
+            try {
+                const response = await fetch('/api/workbook/info', {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                
+                const data = await response.json();
+                
+                // Don't automatically load workbook - let user choose
+                if (data.hasWorkbook) {
+                    console.log('User has existing workbook, but not auto-loading');
+                    // Just show that they have a workbook available
+                    document.getElementById('workbookStatus').innerHTML = `
+                        <div class="warning">
+                            <strong>Previous workbook detected</strong><br>
+                            You have a workbook from a previous session. 
+                            <button class="btn" onclick="reloadPreviousWorkbook()" style="margin-top: 10px;">
+                                Load Previous Workbook
+                            </button>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Failed to load workbook info:', error);
+            }
+        }
+
+        async function reloadPreviousWorkbook() {
+            try {
+                showLoading('Loading your previous workbook...');
+                
+                const response = await fetch('/api/workbook/info', {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                
+                const data = await response.json();
+                hideLoading();
+                
+                if (data.hasWorkbook) {
+                    workbookInfo = data;
+                    displayWorkbookInfo(data);
+                    updateAttendanceForm();
+                    showMessage('Previous workbook loaded successfully!', 'success');
+                } else {
+                    showMessage('No previous workbook found', 'error');
+                }
+            } catch (error) {
+                hideLoading();
+                showMessage('Failed to load previous workbook: ' + error.message, 'error');
+            }
+        }
+
+        function displayWorkbookInfo(data) {
+            // Hide upload section
+            document.getElementById('uploadSection').classList.add('hidden');
+            document.getElementById('driveFilesSection').classList.add('hidden');
+            
+            // Show success status
+            document.getElementById('workbookStatus').innerHTML = `
+                <div class="success">
+                    Workbook loaded successfully!<br>
+                    Found ${data.totalStudents} students in ${data.sheets.length} sheet(s).
+                    ${data.source === 'googleDrive' ? '<br><strong>Source:</strong> Google Drive' : ''}
+                </div>
+            `;
+            
+            const hasDriveAccess = currentUser && currentUser.email;
+            
+            const workbookInfoDiv = document.getElementById('workbookInfo');
+            workbookInfoDiv.innerHTML = `
+                <div class="stats-grid">
+                    <div class="stat-card total">
+                        <div class="stat-number">${data.totalStudents}</div>
+                        <div class="stat-label">Total Students</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${data.sheets.length}</div>
+                        <div class="stat-label">Sheets Found</div>
+                    </div>
+                </div>
+                
+                <h4>Sheet Details:</h4>
+                ${data.sheets.map(sheet => `
+                    <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px; border-left: 4px solid #3498db;">
+                        <strong>${sheet.name}</strong><br>
+                        ${sheet.studentCount} students, ${(sheet.dateColumns?.length) || 0} date columns<br>
+                        <small>Sample: ${(sheet.sampleStudents || []).join(', ')}</small>
+                    </div>
+                `).join('')}
+                
+                <div class="action-buttons">
+                    <button class="btn btn-warning" onclick="downloadWorkbook()">
+                        Download Workbook
+                    </button>
+                    ${hasDriveAccess ? `
+                        <button class="btn btn-google" onclick="uploadToDrive()">
+                            Upload to Drive
+                        </button>
+                    ` : ''}
+                    <button class="btn" onclick="changeWorkbook()">
+                        Change Workbook
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteWorkbook()">
+                        Delete Workbook
+                    </button>
+                </div>
+            `;
+            
+            workbookInfoDiv.classList.remove('hidden');
+        }
+
+        function changeWorkbook() {
+            const confirmed = confirm('Do you want to upload a different workbook?');
+            if (!confirmed) return;
+            
+            // Show upload section again
+            document.getElementById('uploadSection').classList.remove('hidden');
+            document.getElementById('workbookInfo').classList.add('hidden');
+            document.getElementById('workbookStatus').innerHTML = '<p>Choose a new workbook to upload:</p>';
+        }
+
+        async function deleteWorkbook() {
+            const confirmed = confirm(
+                'Are you sure you want to delete the current workbook?\n\n' +
+                'This will remove all student data and sheet information.'
+            );
+            if (!confirmed) return;
+            
+            try {
+                showLoading('Deleting workbook...');
+                
+                const response = await fetch('/api/workbook/delete', {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                
+                const data = await response.json();
+                hideLoading();
+                
+                if (response.ok) {
+                    workbookInfo = null;
+                    document.getElementById('workbookInfo').classList.add('hidden');
+                    document.getElementById('uploadSection').classList.remove('hidden');
+                    document.getElementById('workbookStatus').innerHTML = '<p>No workbook uploaded yet.</p>';
+                    document.getElementById('attendanceForm').classList.add('hidden');
+                    showMessage('Workbook deleted successfully', 'success');
+                } else {
+                    showMessage(data.error, 'error');
+                }
+            } catch (error) {
+                hideLoading();
+                showMessage('Delete failed: ' + error.message, 'error');
+            }
+        }
+
+        // Google Drive functions
+        async function showDriveFiles() {
+            try {
+                showLoading('Loading your Google Drive files...');
+                
+                const response = await fetch('/api/drive/files', {
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                
+                const data = await response.json();
+                hideLoading();
+                
+                if (response.ok) {
+                    driveFiles = data.files || [];
+                    displayDriveFiles();
+                } else {
+                    showMessage(data.error, 'error');
+                }
+            } catch (error) {
+                hideLoading();
+                showMessage('Failed to load Drive files: ' + error.message, 'error');
+            }
+        }
+
+        function displayDriveFiles() {
+            document.getElementById('uploadSection').classList.add('hidden');
+            document.getElementById('driveFilesSection').classList.remove('hidden');
+            
+            const driveFilesList = document.getElementById('driveFilesList');
+            
+            if (driveFiles.length === 0) {
+                driveFilesList.innerHTML = '<p>No Excel files found in your Google Drive.</p>';
+                return;
+            }
+            
+            driveFilesList.innerHTML = driveFiles.map(file => {
+                const isUploaded = file.isUploaded;
+                return `
+                    <div class="drive-file-card ${isUploaded ? 'uploaded' : ''}" 
+                         ${!isUploaded ? `onclick="processDriveFile('${file.id}', '${file.name}')"` : ''}>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div style="flex: 1;">
+                                <strong>${file.name}</strong>
+                                ${isUploaded ? '<span style="background: #27ae60; color: white; padding: 4px 8px; border-radius: 12px; font-size: 0.8em; margin-left: 10px;">Currently Loaded</span>' : ''}
+                                <br>
+                                <small>Modified: ${new Date(file.modifiedTime).toLocaleDateString()}</small>
+                                ${file.size ? `<br><small>Size: ${Math.round(file.size/1024)}KB</small>` : ''}
+                            </div>
+                            ${isUploaded ? 
+                                '<div style="font-size: 2rem;">✓</div>' : 
+                                '<div style="color: #3498db; font-weight: bold;">Click to Load →</div>'
+                            }
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function hideDriveFiles() {
+            document.getElementById('driveFilesSection').classList.add('hidden');
+            document.getElementById('uploadSection').classList.remove('hidden');
+        }
+
+        async function processDriveFile(fileId, fileName) {
+            try {
+                showLoading(`Loading ${fileName} from Google Drive...`);
+                
+                const response = await fetch('/api/drive/process-file', {
+                    method: 'POST',
+                    headers: { 
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ fileId, fileName })
+                });
+                
+                const data = await response.json();
+                hideLoading();
+                
+                if (response.ok) {
+                    workbookInfo = data;
+                    displayWorkbookInfo(data);
+                    updateAttendanceForm();
+                    showMessage(`Successfully loaded ${fileName} from Google Drive!`, 'success');
+                } else {
+                    showMessage(data.error, 'error');
+                }
+            } catch (error) {
+                hideLoading();
+                showMessage('Failed to process Drive file: ' + error.message, 'error');
+            }
+        }
+
+        async function uploadToDrive() {
+            try {
+                showLoading('Uploading to Google Drive...');
+                
+                const response = await fetch('/api/drive/upload-updated', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+                
+                const data = await response.json();
+                hideLoading();
+                
+                if (response.ok) {
+                    showMessage(`Uploaded to Drive: ${data.driveFile.name}`, 'success');
+                } else {
+                    showMessage(data.error, 'error');
+                }
+            } catch (error) {
+                hideLoading();
+                showMessage('Upload to Drive failed: ' + error.message, 'error');
+            }
+        }
+
+        async function downloadWorkbook() {
+            try {
+                const response = await fetch('/api/workbook/download', {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${authToken}` }
+                });
+
+                if (!response.ok) {
+                    const data = await response.json();
+                    showMessage(data.error, 'error');
+                    return;
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${currentUser.username}_attendance_updated.xlsx`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                showMessage('Download completed!', 'success');
+            } catch (error) {
+                showMessage('Download failed: ' + error.message, 'error');
+            }
+        }
+
+        function updateAttendanceForm() {
+            if (workbookInfo && workbookInfo.sheets) {
+                const sheetSelect = document.getElementById('sheetSelect');
+                sheetSelect.innerHTML = '<option value="">Choose a sheet...</option>';
+                
+                workbookInfo.sheets.forEach(sheet => {
+                    const option = document.createElement('option');
+                    option.value = sheet.name;
+                    option.textContent = `${sheet.name} (${sheet.studentCount} students)`;
+                    sheetSelect.appendChild(option);
+                });
+                
+                document.getElementById('attendanceForm').classList.remove('hidden');
+                document.getElementById('noWorkbookWarning').classList.add('hidden');
+            }
+        }
+
+        function checkWorkbookStatus() {
+            if (!workbookInfo) {
+                document.getElementById('noWorkbookWarning').classList.remove('hidden');
+                document.getElementById('attendanceForm').classList.add('hidden');
+            }
+        }
+
+        // Attendance processing
+        document.getElementById('photoInput').addEventListener('change', handlePhotoSelect);
+
+        function handlePhotoSelect() {
+            const file = document.getElementById('photoInput').files[0];
+            if (file) {
+                selectedFile = file;
+                showPhotoPreview(file);
+                document.getElementById('processBtn').disabled = false;
+            }
+        }
+
+        function showPhotoPreview(file) {
+            const photoUploadArea = document.getElementById('photoUploadArea');
+            const preview = document.getElementById('preview');
+            
+            // Hide the upload area
+            photoUploadArea.classList.add('hidden');
+            
+            // Show preview with change photo button
+            preview.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <img src="${URL.createObjectURL(file)}" class="preview" style="max-width: 100%; max-height: 300px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                    <div style="margin-top: 15px;">
+                        <button class="btn" onclick="changePhoto()">Change Photo</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function changePhoto() {
+            // Reset photo selection
+            selectedFile = null;
+            document.getElementById('photoInput').value = '';
+            document.getElementById('processBtn').disabled = true;
+            
+            // Show upload area again
+            document.getElementById('photoUploadArea').classList.remove('hidden');
+            document.getElementById('preview').innerHTML = '';
+        }
+
+        function setToday() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('attendanceDate').value = today;
+        }
+
+        async function processAttendance() {
+            const sheetName = document.getElementById('sheetSelect').value;
+            const date = document.getElementById('attendanceDate').value;
+            
+            if (!selectedFile || !sheetName || !date) {
+                showMessage('Please select photo, sheet, and date', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('photo', selectedFile);
+            formData.append('sheetName', sheetName);
+            formData.append('date', date);
+
+            try {
+                showLoading('Processing attendance...');
+                
+                const response = await fetch('/api/attendance/process', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${authToken}` },
+                    body: formData
+                });
+                
+                const data = await response.json();
+                console.log('Server response:', data); // Debug log
+                hideLoading();
+                
+                if (data.success) {
+                    displayResults(data);
+                } else {
+                    showMessage(data.error, 'error');
+                }
+            } catch (error) {
+                hideLoading();
+                showMessage('Processing failed: ' + error.message, 'error');
+            }
+        }
+
+        function displayResults(data) {
+            const resultsDiv = document.getElementById('results');
+            let html = '';
+            
+            html += `<div class="success">${data.message}</div>`;
+            
+            // Show sheet-specific information
+            if (data.selectedSheetInfo) {
+                html += `
+                    <div class="warning">
+                        <strong>Sheet-Limited Processing:</strong><br>
+                        Processed against "${data.selectedSheetInfo.name}" only<br>
+                        (${data.selectedSheetInfo.studentCount} students in this sheet)
+                    </div>
+                `;
+            }
+            
+            // Enhanced statistics with absent count
+            html += `
+                <div class="stats-grid">
+                    <div class="stat-card total">
+                        <div class="stat-number">${data.totalStudents}</div>
+                        <div class="stat-label">Total Found</div>
+                    </div>
+                    <div class="stat-card matched">
+                        <div class="stat-number">${data.sheetMatchedStudents || data.matchedStudents}</div>
+                        <div class="stat-label">Present</div>
+                    </div>
+                    ${data.workbookUpdate && data.workbookUpdate.absentCount ? `
+                        <div class="stat-card" style="border-left: 4px solid #f39c12;">
+                            <div class="stat-number">${data.workbookUpdate.absentCount}</div>
+                            <div class="stat-label">Marked Absent</div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            if (data.workbookUpdate) {
+                html += `
+                    <div class="success">
+                        Workbook Updated:<br>
+                        • ${data.workbookUpdate.updatedCount} students marked as <strong>Present</strong><br>
+                        ${data.workbookUpdate.absentCount ? 
+                            `• ${data.workbookUpdate.absentCount} students marked as <strong>Absent</strong><br>` : ''}
+                        in "${data.sheetName}" for ${data.date}
+                    </div>
+                `;
+            }
+            
+            // Student list with present indicator
+            html += '<h3>Attendance Results (Present Students):</h3>';
+            data.attendanceData.forEach((student, index) => {
+                const matchClass = student.isMatched ? 'matched' : 'unmatched';
+                const sheetIndicator = student.fromSheet ? ' (from selected sheet)' : ' (fallback match)';
+                
+                html += `
+                    <div class="student-card ${matchClass}">
+                        <div class="student-info">
+                            <div class="student-name">${index + 1}. ${student.name}</div>
+                        </div>
+                        <div class="status-present">Present</div>
+                    </div>
+                `;
+            });
+            
+            // Action buttons with Drive upload
+            const hasDriveAccess = currentUser && currentUser.email;
+            
+            html += `
+                <div class="action-buttons">
+                    <button class="btn btn-success" onclick="downloadWorkbook()">
+                        Download Updated Workbook
+                    </button>
+                    ${hasDriveAccess ? `
+                        <button class="btn" style="background: linear-gradient(45deg, #db4437, #c23321);" onclick="uploadToDrive()">
+                            Upload to Google Drive
+                        </button>
+                    ` : ''}
+                    <button class="btn" onclick="copyResults()">Copy Results</button>
+                </div>
+            `;
+            
+            // Note about absent students
+            if (data.workbookUpdate && data.workbookUpdate.absentCount > 0) {
+                html += `
+                    <div class="warning" style="margin-top: 20px;">
+                        <strong>ℹNote:</strong> ${data.workbookUpdate.absentCount} students who were not present in the photo 
+                        have been automatically marked as "Absent" in the workbook.
+                    </div>
+                `;
+            }
+            
+            resultsDiv.innerHTML = html;
+            resultsDiv.style.display = 'block';
+        }
+
+        function showLoading(text) {
+            document.getElementById('loadingText').textContent = text;
+            document.getElementById('loading').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function showMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = type;
+            messageDiv.textContent = message;
+            
+            const results = document.getElementById('results');
+            results.innerHTML = '';
+            results.appendChild(messageDiv);
+            results.style.display = 'block';
+            
+            setTimeout(() => {
+                if (results.contains(messageDiv)) {
+                    results.removeChild(messageDiv);
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

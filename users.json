@@ -1,0 +1,591 @@
+[
+  {
+    "userId": "1757806954715",
+    "username": "raicee",
+    "email": "raiceen7@gmail.com",
+    "fullName": "Raiceen Llaneta",
+    "subject": "",
+    "password": "$2b$10$RuJZH7V.cyuK5N0e/DTS1uwyeXRkvBv.MYQRUeNc7QJx4G1T.0y4C",
+    "createdAt": "2025-09-13T23:42:34.715Z",
+    "workbookPath": "workbooks\\1757806954715_workbook_1760536227934.xlsx",
+    "studentDatabase": [
+      "Adriano, Felicity Mae",
+      "Bamba, Michael Angelo I.",
+      "Castro, Dominic Ray",
+      "Dizon, Patrick R.",
+      "Enriquez, Sophia Claire",
+      "Fernandez, Nathaniel J.",
+      "Garcia, Isabella Rose",
+      "Hernandez, Victor Alan",
+      "Ignacio, Chloe Anne",
+      "Jacinto, Daniel A.",
+      "Keller, Jasmine Rae",
+      "Lopez, Benjamin Lee",
+      "Llaneta, Raiceen C.",
+      "Luna, Juan K. Jr.",
+      "Marbit, Karlo R.",
+      "Navarro, Emily Grace",
+      "Ortega, Marcus D.",
+      "Panganiban, Julia Isabel",
+      "Quinto, Harper Elise",
+      "Reyes, Jonathan Blake",
+      "Santos, Gabriella Marie",
+      "Torres, Ethan James",
+      "Umali, Felicity Jane",
+      "Valdez, Anthony Scott",
+      "Williams, Clara Louise",
+      "Xavier, Caleb Joseph",
+      "Yap, Madeline Hope",
+      "Zabala, Henry Paul",
+      "Zauza, Olivia Mae",
+      "Zutar, Samuel T.",
+      "Abad, Lorenzo M.",
+      "Balderas, Celeste F.",
+      "Briones, Patrick James",
+      "Carpio, Juliana Rose",
+      "Clemente, Adrian Kyle",
+      "Delos Santos, Francis J.",
+      "Domingo, Vincent Kyle",
+      "Escueta, Marianne Rose",
+      "Estrella, Charlene Hope",
+      "Francisco, Carlo D.",
+      "Gutierrez, Bianca Mae",
+      "Hidalgo, Ramon S.",
+      "Imperial, Tristan Cole",
+      "Javier, Louella Grace",
+      "Kendrick, Aiden Ross",
+      "Lim, Katrina Joy",
+      "Mendoza, Paolo C.",
+      "Nolasco, Arvin Jude",
+      "Olivares, Michelle Anne",
+      "Paredes, Joshua K.",
+      "Quiambao, Denise R.",
+      "Rivera, Mark Joseph",
+      "Salazar, Andrea Leigh",
+      "Tan, Leonardo V.",
+      "Urbano, Claudine Rae",
+      "Villanueva, Stephen Paul",
+      "Washington, Amelia Faith",
+      "Xu, Alexander Lee",
+      "Yu, Cassandra Belle",
+      "Zulueta, Christian Noel"
+    ],
+    "workbookStructure": {
+      "LFCA411M159": {
+        "students": [
+          "Adriano, Felicity Mae",
+          "Bamba, Michael Angelo I.",
+          "Castro, Dominic Ray",
+          "Dizon, Patrick R.",
+          "Enriquez, Sophia Claire",
+          "Fernandez, Nathaniel J.",
+          "Garcia, Isabella Rose",
+          "Hernandez, Victor Alan",
+          "Ignacio, Chloe Anne",
+          "Jacinto, Daniel A.",
+          "Keller, Jasmine Rae",
+          "Lopez, Benjamin Lee",
+          "Llaneta, Raiceen C.",
+          "Luna, Juan K. Jr.",
+          "Marbit, Karlo R.",
+          "Navarro, Emily Grace",
+          "Ortega, Marcus D.",
+          "Panganiban, Julia Isabel",
+          "Quinto, Harper Elise",
+          "Reyes, Jonathan Blake",
+          "Santos, Gabriella Marie",
+          "Torres, Ethan James",
+          "Umali, Felicity Jane",
+          "Valdez, Anthony Scott",
+          "Williams, Clara Louise",
+          "Xavier, Caleb Joseph",
+          "Yap, Madeline Hope",
+          "Zabala, Henry Paul",
+          "Zauza, Olivia Mae",
+          "Zutar, Samuel T."
+        ],
+        "studentCount": 30,
+        "nameColumnIndex": 1,
+        "nameColumnLetter": "A",
+        "dateColumns": [
+          {
+            "index": 2,
+            "header": "2025-10-01",
+            "headerRow": 2,
+            "columnLetter": "B",
+            "detectedAs": "text"
+          },
+          {
+            "index": 3,
+            "header": "2025-10-02",
+            "headerRow": 2,
+            "columnLetter": "C",
+            "detectedAs": "text"
+          },
+          {
+            "index": 4,
+            "header": "2025-10-03",
+            "headerRow": 2,
+            "columnLetter": "D",
+            "detectedAs": "text"
+          },
+          {
+            "index": 5,
+            "header": "2025-10-04",
+            "headerRow": 2,
+            "columnLetter": "E",
+            "detectedAs": "text"
+          },
+          {
+            "index": 6,
+            "header": "2025-10-05",
+            "headerRow": 2,
+            "columnLetter": "F",
+            "detectedAs": "text"
+          },
+          {
+            "index": 7,
+            "header": "2025-10-06",
+            "headerRow": 2,
+            "columnLetter": "G",
+            "detectedAs": "text"
+          },
+          {
+            "index": 8,
+            "header": "2025-10-07",
+            "headerRow": 2,
+            "columnLetter": "H",
+            "detectedAs": "text"
+          },
+          {
+            "index": 9,
+            "header": "2025-10-08",
+            "headerRow": 2,
+            "columnLetter": "I",
+            "detectedAs": "text"
+          },
+          {
+            "index": 10,
+            "header": "2025-10-09",
+            "headerRow": 2,
+            "columnLetter": "J",
+            "detectedAs": "text"
+          },
+          {
+            "index": 11,
+            "header": "2025-10-10",
+            "headerRow": 2,
+            "columnLetter": "K",
+            "detectedAs": "text"
+          },
+          {
+            "index": 12,
+            "header": "2025-10-11",
+            "headerRow": 2,
+            "columnLetter": "L",
+            "detectedAs": "text"
+          },
+          {
+            "index": 13,
+            "header": "2025-10-12",
+            "headerRow": 2,
+            "columnLetter": "M",
+            "detectedAs": "text"
+          },
+          {
+            "index": 14,
+            "header": "2025-10-13",
+            "headerRow": 2,
+            "columnLetter": "N",
+            "detectedAs": "text"
+          },
+          {
+            "index": 15,
+            "header": "2025-10-14",
+            "headerRow": 2,
+            "columnLetter": "O",
+            "detectedAs": "text"
+          },
+          {
+            "index": 16,
+            "header": "2025-10-15",
+            "headerRow": 2,
+            "columnLetter": "P",
+            "detectedAs": "text"
+          },
+          {
+            "index": 17,
+            "header": "2025-10-16",
+            "headerRow": 2,
+            "columnLetter": "Q",
+            "detectedAs": "text"
+          },
+          {
+            "index": 18,
+            "header": "2025-10-17",
+            "headerRow": 2,
+            "columnLetter": "R",
+            "detectedAs": "text"
+          },
+          {
+            "index": 19,
+            "header": "2025-10-18",
+            "headerRow": 2,
+            "columnLetter": "S",
+            "detectedAs": "text"
+          },
+          {
+            "index": 20,
+            "header": "2025-10-19",
+            "headerRow": 2,
+            "columnLetter": "T",
+            "detectedAs": "text"
+          },
+          {
+            "index": 21,
+            "header": "2025-10-20",
+            "headerRow": 2,
+            "columnLetter": "U",
+            "detectedAs": "text"
+          },
+          {
+            "index": 22,
+            "header": "2025-10-21",
+            "headerRow": 2,
+            "columnLetter": "V",
+            "detectedAs": "text"
+          },
+          {
+            "index": 23,
+            "header": "2025-10-22",
+            "headerRow": 2,
+            "columnLetter": "W",
+            "detectedAs": "text"
+          },
+          {
+            "index": 24,
+            "header": "2025-10-23",
+            "headerRow": 2,
+            "columnLetter": "X",
+            "detectedAs": "text"
+          },
+          {
+            "index": 25,
+            "header": "2025-10-24",
+            "headerRow": 2,
+            "columnLetter": "Y",
+            "detectedAs": "text"
+          },
+          {
+            "index": 26,
+            "header": "2025-10-25",
+            "headerRow": 2,
+            "columnLetter": "Z",
+            "detectedAs": "text"
+          },
+          {
+            "index": 27,
+            "header": "2025-10-26",
+            "headerRow": 2,
+            "columnLetter": "AA",
+            "detectedAs": "text"
+          },
+          {
+            "index": 28,
+            "header": "2025-10-27",
+            "headerRow": 2,
+            "columnLetter": "AB",
+            "detectedAs": "text"
+          },
+          {
+            "index": 29,
+            "header": "2025-10-28",
+            "headerRow": 2,
+            "columnLetter": "AC",
+            "detectedAs": "text"
+          },
+          {
+            "index": 30,
+            "header": "2025-10-29",
+            "headerRow": 2,
+            "columnLetter": "AD",
+            "detectedAs": "text"
+          },
+          {
+            "index": 31,
+            "header": "2025-10-30",
+            "headerRow": 2,
+            "columnLetter": "AE",
+            "detectedAs": "text"
+          }
+        ],
+        "headerRowIndex": 3,
+        "totalRows": 275,
+        "totalColumns": 31
+      },
+      "LFCA211E074": {
+        "students": [
+          "Abad, Lorenzo M.",
+          "Balderas, Celeste F.",
+          "Briones, Patrick James",
+          "Carpio, Juliana Rose",
+          "Clemente, Adrian Kyle",
+          "Delos Santos, Francis J.",
+          "Domingo, Vincent Kyle",
+          "Escueta, Marianne Rose",
+          "Estrella, Charlene Hope",
+          "Francisco, Carlo D.",
+          "Gutierrez, Bianca Mae",
+          "Hidalgo, Ramon S.",
+          "Imperial, Tristan Cole",
+          "Javier, Louella Grace",
+          "Kendrick, Aiden Ross",
+          "Lim, Katrina Joy",
+          "Mendoza, Paolo C.",
+          "Nolasco, Arvin Jude",
+          "Olivares, Michelle Anne",
+          "Paredes, Joshua K.",
+          "Quiambao, Denise R.",
+          "Rivera, Mark Joseph",
+          "Salazar, Andrea Leigh",
+          "Tan, Leonardo V.",
+          "Urbano, Claudine Rae",
+          "Villanueva, Stephen Paul",
+          "Washington, Amelia Faith",
+          "Xu, Alexander Lee",
+          "Yu, Cassandra Belle",
+          "Zulueta, Christian Noel"
+        ],
+        "studentCount": 30,
+        "nameColumnIndex": 1,
+        "nameColumnLetter": "A",
+        "dateColumns": [
+          {
+            "index": 2,
+            "header": "2025-10-01",
+            "headerRow": 2,
+            "columnLetter": "B",
+            "detectedAs": "text"
+          },
+          {
+            "index": 3,
+            "header": "2025-10-02",
+            "headerRow": 2,
+            "columnLetter": "C",
+            "detectedAs": "text"
+          },
+          {
+            "index": 4,
+            "header": "2025-10-03",
+            "headerRow": 2,
+            "columnLetter": "D",
+            "detectedAs": "text"
+          },
+          {
+            "index": 5,
+            "header": "2025-10-04",
+            "headerRow": 2,
+            "columnLetter": "E",
+            "detectedAs": "text"
+          },
+          {
+            "index": 6,
+            "header": "2025-10-05",
+            "headerRow": 2,
+            "columnLetter": "F",
+            "detectedAs": "text"
+          },
+          {
+            "index": 7,
+            "header": "2025-10-06",
+            "headerRow": 2,
+            "columnLetter": "G",
+            "detectedAs": "text"
+          },
+          {
+            "index": 8,
+            "header": "2025-10-07",
+            "headerRow": 2,
+            "columnLetter": "H",
+            "detectedAs": "text"
+          },
+          {
+            "index": 9,
+            "header": "2025-10-08",
+            "headerRow": 2,
+            "columnLetter": "I",
+            "detectedAs": "text"
+          },
+          {
+            "index": 10,
+            "header": "2025-10-09",
+            "headerRow": 2,
+            "columnLetter": "J",
+            "detectedAs": "text"
+          },
+          {
+            "index": 11,
+            "header": "2025-10-10",
+            "headerRow": 2,
+            "columnLetter": "K",
+            "detectedAs": "text"
+          },
+          {
+            "index": 12,
+            "header": "2025-10-11",
+            "headerRow": 2,
+            "columnLetter": "L",
+            "detectedAs": "text"
+          },
+          {
+            "index": 13,
+            "header": "2025-10-12",
+            "headerRow": 2,
+            "columnLetter": "M",
+            "detectedAs": "text"
+          },
+          {
+            "index": 14,
+            "header": "2025-10-13",
+            "headerRow": 2,
+            "columnLetter": "N",
+            "detectedAs": "text"
+          },
+          {
+            "index": 15,
+            "header": "2025-10-14",
+            "headerRow": 2,
+            "columnLetter": "O",
+            "detectedAs": "text"
+          },
+          {
+            "index": 16,
+            "header": "2025-10-15",
+            "headerRow": 2,
+            "columnLetter": "P",
+            "detectedAs": "text"
+          },
+          {
+            "index": 17,
+            "header": "2025-10-16",
+            "headerRow": 2,
+            "columnLetter": "Q",
+            "detectedAs": "text"
+          },
+          {
+            "index": 18,
+            "header": "2025-10-17",
+            "headerRow": 2,
+            "columnLetter": "R",
+            "detectedAs": "text"
+          },
+          {
+            "index": 19,
+            "header": "2025-10-18",
+            "headerRow": 2,
+            "columnLetter": "S",
+            "detectedAs": "text"
+          },
+          {
+            "index": 20,
+            "header": "2025-10-19",
+            "headerRow": 2,
+            "columnLetter": "T",
+            "detectedAs": "text"
+          },
+          {
+            "index": 21,
+            "header": "2025-10-20",
+            "headerRow": 2,
+            "columnLetter": "U",
+            "detectedAs": "text"
+          },
+          {
+            "index": 22,
+            "header": "2025-10-21",
+            "headerRow": 2,
+            "columnLetter": "V",
+            "detectedAs": "text"
+          },
+          {
+            "index": 23,
+            "header": "2025-10-22",
+            "headerRow": 2,
+            "columnLetter": "W",
+            "detectedAs": "text"
+          },
+          {
+            "index": 24,
+            "header": "2025-10-23",
+            "headerRow": 2,
+            "columnLetter": "X",
+            "detectedAs": "text"
+          },
+          {
+            "index": 25,
+            "header": "2025-10-24",
+            "headerRow": 2,
+            "columnLetter": "Y",
+            "detectedAs": "text"
+          },
+          {
+            "index": 26,
+            "header": "2025-10-25",
+            "headerRow": 2,
+            "columnLetter": "Z",
+            "detectedAs": "text"
+          },
+          {
+            "index": 27,
+            "header": "2025-10-26",
+            "headerRow": 2,
+            "columnLetter": "AA",
+            "detectedAs": "text"
+          },
+          {
+            "index": 28,
+            "header": "2025-10-27",
+            "headerRow": 2,
+            "columnLetter": "AB",
+            "detectedAs": "text"
+          },
+          {
+            "index": 29,
+            "header": "2025-10-28",
+            "headerRow": 2,
+            "columnLetter": "AC",
+            "detectedAs": "text"
+          },
+          {
+            "index": 30,
+            "header": "2025-10-29",
+            "headerRow": 2,
+            "columnLetter": "AD",
+            "detectedAs": "text"
+          },
+          {
+            "index": 31,
+            "header": "2025-10-30",
+            "headerRow": 2,
+            "columnLetter": "AE",
+            "detectedAs": "text"
+          }
+        ],
+        "headerRowIndex": 3,
+        "totalRows": 33,
+        "totalColumns": 31
+      }
+    },
+    "updatedAt": "2025-10-15T13:50:28.038Z",
+    "googleId": "107224879461481210777",
+    "avatar": "https://lh3.googleusercontent.com/a/ACg8ocIxzP-u-61PeE7G-go-GjBXPUmCVq6lHGGFvGDKpUVPVaA3OrL2=s96-c",
+    "googleTokens": {
+      "accessToken": "ya29.a0AQQ_BDQM-olDeVI5yapU-XjncgNyIO_GbCq7yB4b-7jH-v9HdA_cPAH_eVF3XnCHWJjpcqnKj-XNoerW5G5-cPzzrnMhiDDLBA9Xtax_LiHpxk0WMVfEhZofav_OwoTzeiK4w7izA6aO9cWxBTKqsinHaWz4oqb0UgJeacBFGFUExqUowkSbs9gwrJ5oGNY1uMioiRQmaCgYKAVISARYSFQHGX2MikZub6z5nDAcQyYkJzg331w0207"
+    },
+    "driveFileId": "1L_ItNT5qzXPr_T_qeOJUTjrpYZt40zYP",
+    "driveFileName": "AUTOATT.xlsx",
+    "googleConnected": true,
+    "lastGoogleLogin": "2025-10-15T23:11:54.073Z",
+    "originalFileName": "AUTOATT"
+  }
+]
