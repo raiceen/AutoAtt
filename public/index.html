@@ -532,7 +532,7 @@
                     <div id="driveOption" class="hidden" style="text-align: center;">
                         <div class="divider"><span>OR</span></div>
                         <button class="btn btn-google" onclick="showDriveFiles()">
-                            📁 Select File from Google Drive
+                            Select File from Google Drive
                         </button>
                     </div>
                 </div>
@@ -609,7 +609,7 @@
         let selectedFile = null;
         let driveFiles = [];
         
-        // Initialize on page load
+        
         window.onload = function() {
             console.log('Page loading...');
             
@@ -808,7 +808,7 @@
                 ${isGoogleUser ? '<br><small style="opacity: 0.8;">Google Connected</small>' : ''}
             `;
 
-            // Show Drive option if Google user
+            
             if (isGoogleUser) {
                 document.getElementById('driveOption').classList.remove('hidden');
             }
@@ -846,7 +846,7 @@
             }
         }
 
-        // Workbook upload
+        
         document.getElementById('workbookInput').addEventListener('change', uploadWorkbook);
 
         async function uploadWorkbook() {
@@ -899,10 +899,10 @@
                 
                 const data = await response.json();
                 
-                // Don't automatically load workbook - let user choose
+                
                 if (data.hasWorkbook) {
                     console.log('User has existing workbook, but not auto-loading');
-                    // Just show that they have a workbook available
+                    
                     document.getElementById('workbookStatus').innerHTML = `
                         <div class="warning">
                             <strong>Previous workbook detected</strong><br>
@@ -944,11 +944,11 @@
         }
 
         function displayWorkbookInfo(data) {
-            // Hide upload section
+            
             document.getElementById('uploadSection').classList.add('hidden');
             document.getElementById('driveFilesSection').classList.add('hidden');
             
-            // Show success status
+            
             document.getElementById('workbookStatus').innerHTML = `
                 <div class="success">
                     Workbook loaded successfully!<br>
@@ -1006,7 +1006,7 @@
             const confirmed = confirm('Do you want to upload a different workbook?');
             if (!confirmed) return;
             
-            // Show upload section again
+            
             document.getElementById('uploadSection').classList.remove('hidden');
             document.getElementById('workbookInfo').classList.add('hidden');
             document.getElementById('workbookStatus').innerHTML = '<p>Choose a new workbook to upload:</p>';
@@ -1046,7 +1046,7 @@
             }
         }
 
-        // Google Drive functions
+        
         async function showDriveFiles() {
             try {
                 showLoading('Loading your Google Drive files...');
@@ -1215,7 +1215,7 @@
             }
         }
 
-        // Attendance processing
+        
         document.getElementById('photoInput').addEventListener('change', handlePhotoSelect);
 
         function handlePhotoSelect() {
@@ -1231,10 +1231,10 @@
             const photoUploadArea = document.getElementById('photoUploadArea');
             const preview = document.getElementById('preview');
             
-            // Hide the upload area
+            
             photoUploadArea.classList.add('hidden');
             
-            // Show preview with change photo button
+            
             preview.innerHTML = `
                 <div style="text-align: center; margin-bottom: 20px;">
                     <img src="${URL.createObjectURL(file)}" class="preview" style="max-width: 100%; max-height: 300px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
@@ -1246,12 +1246,12 @@
         }
 
         function changePhoto() {
-            // Reset photo selection
+            
             selectedFile = null;
             document.getElementById('photoInput').value = '';
             document.getElementById('processBtn').disabled = true;
             
-            // Show upload area again
+            
             document.getElementById('photoUploadArea').classList.remove('hidden');
             document.getElementById('preview').innerHTML = '';
         }
@@ -1285,7 +1285,7 @@
                 });
                 
                 const data = await response.json();
-                console.log('Server response:', data); // Debug log
+                console.log('Server response:', data); 
                 hideLoading();
                 
                 if (data.success) {
@@ -1305,7 +1305,7 @@
             
             html += `<div class="success">${data.message}</div>`;
             
-            // Show sheet-specific information
+            
             if (data.selectedSheetInfo) {
                 html += `
                     <div class="warning">
@@ -1316,7 +1316,7 @@
                 `;
             }
             
-            // Enhanced statistics with absent count
+            
             html += `
                 <div class="stats-grid">
                     <div class="stat-card total">
@@ -1348,7 +1348,7 @@
                 `;
             }
             
-            // Student list with present indicator
+            
             html += '<h3>Attendance Results (Present Students):</h3>';
             data.attendanceData.forEach((student, index) => {
                 const matchClass = student.isMatched ? 'matched' : 'unmatched';
@@ -1364,7 +1364,7 @@
                 `;
             });
             
-            // Action buttons with Drive upload
+            
             const hasDriveAccess = currentUser && currentUser.email;
             
             html += `
@@ -1381,7 +1381,7 @@
                 </div>
             `;
             
-            // Note about absent students
+            
             if (data.workbookUpdate && data.workbookUpdate.absentCount > 0) {
                 html += `
                     <div class="warning" style="margin-top: 20px;">
